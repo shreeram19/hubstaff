@@ -25,6 +25,12 @@ module.exports = function(grunt){
                     src: '**/*.js',
                     dest:'build/'
                 },
+                {
+                    expand: true,
+                    cwd: 'app/',
+                    src: 'images/**/*',
+                    dest:'build/'
+                },
             ]
             }
         },
@@ -47,5 +53,4 @@ module.exports = function(grunt){
     
     
     grunt.registerTask('default',['clean','compilestyle','copy','watch']);
-
 };
