@@ -1,4 +1,5 @@
 module.exports = function(grunt){
+    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-sass');
@@ -11,6 +12,12 @@ module.exports = function(grunt){
     });
     
     grunt.initConfig({
+        concat : {
+            dist: {
+                src: ['app/styles/*'],
+                dest: 'app/styles/bundle.scss'
+            }
+        },
         copy:{
             dist :{
                 files:[{
@@ -31,14 +38,19 @@ module.exports = function(grunt){
                     src: 'images/**/*',
                     dest:'build/'
                 },
+                {
+                    expand: true,
+                    src: 'jquery.js',
+                    dest:'build/'
+                }
             ]
             }
         },
-        clean:['app/all*','build'],
+        clean:['app/styles/bundle.scss','app/all*','build'],
         sass:{
             dist:{
                files:[{
-                   src:['app/styles/*'],
+                   src:['app/styles/bundle.scss'],
                    dest:'build/all.css'
                }] 
             }
@@ -46,11 +58,11 @@ module.exports = function(grunt){
         watch:{
             css:{
                 files:['app/styles/*','app/**/*.js','app/**/*.html'],
-                tasks:['compilestyle','copy']
+                tasks:['clean','concat','compilestyle','copy']
             }
         }
     });
     
     
-    grunt.registerTask('default',['clean','compilestyle','copy','watch']);
+    grunt.registerTask('default',['clean','concat','compilestyle','copy','watch']);
 };
