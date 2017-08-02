@@ -15,7 +15,7 @@ module.exports = function(grunt){
     grunt.initConfig({
         exec:{
             installSass: {
-                command: 'sudo gem install sass'
+                command: 'gem install sass'
             }
         },
         concat : {
