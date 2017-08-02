@@ -1,4 +1,5 @@
 module.exports = function(grunt){
+    grunt.loadNpmTasks('grunt-exec');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
@@ -12,6 +13,11 @@ module.exports = function(grunt){
     });
     
     grunt.initConfig({
+        exec:{
+            installSass: {
+                command: 'sudo gem install sass'
+            }
+        },
         concat : {
             dist: {
                 src: ['app/styles/*'],
@@ -64,5 +70,5 @@ module.exports = function(grunt){
     });
     
     
-    grunt.registerTask('default',['clean','concat','compilestyle','copy','watch']);
+    grunt.registerTask('default',['exec','clean','concat','compilestyle','copy','watch']);
 };
